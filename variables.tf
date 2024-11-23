@@ -3,19 +3,19 @@ variable "aws_region" {
 }
 
 variable "ecr_repository_name" {
-  default = "my-app-repo"
+  default = "dev-fplarache-smartlib-emprunt-repo-ayoub"
 }
 
 variable "ecs_cluster_name" {
-  default = "my-app-cluster"
+  default = "dev-fplarache-smartlib-emprunt-cluster-ayoub"
 }
 
 variable "ecs_task_family" {
-  default = "my-app-task-family"
+  default = "dev-fplarache-smartlib-emprunt-family-ayoub"
 }
 
 variable "ecs_service_name" {
-  default = "my-app-service"
+  default = "dev-fplarache-smartlib-emprunt-svc-ayoub"
 }
 
 variable "subnet_ids" {
