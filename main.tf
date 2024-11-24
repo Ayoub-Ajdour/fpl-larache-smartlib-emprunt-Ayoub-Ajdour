@@ -1,9 +1,6 @@
 provider "aws" {
   region = var.aws_region
 }
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
 
 module "ecr" {
   source              = "./modules/ecr"
@@ -12,12 +9,11 @@ module "ecr" {
 
 module "networking" {
   source = "./modules/network"
-
+  
   region = var.aws_region  
 
   subnet_ids = module.networking.subnet_ids
 }
-
 
 module "ecs" {
   source             = "./modules/ecs"
@@ -30,11 +26,10 @@ module "ecs" {
   ecr_repository_url  = module.ecr.repository_url
 }
 
-
 data "aws_iam_role" "existing_ecs_task_execution" {
   name = "ecsTaskExecutionRole"
-=======
->>>>>>> master
+}
+
 resource "aws_ecr_repository" "app_repo" {
   name                 = var.ecr_repository_name
   image_tag_mutability = "MUTABLE"
@@ -64,6 +59,7 @@ DEFINITION
   cpu                     = "256"
   execution_role_arn      = aws_iam_role.ecs_task_execution.arn
 }
+
 resource "aws_ecs_service" "app_service" {
   name            = var.ecs_service_name
   cluster         = aws_ecs_cluster.app_cluster.id
@@ -77,6 +73,7 @@ resource "aws_ecs_service" "app_service" {
 
   desired_count = 1
 }
+
 resource "aws_iam_role" "ecs_task_execution" {
   name = "ecsTaskExecutionRole"
 
@@ -97,8 +94,4 @@ resource "aws_iam_role" "ecs_task_execution" {
 resource "aws_iam_role_policy_attachment" "ecs_task_execution_attachment" {
   role       = aws_iam_role.ecs_task_execution.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
-<<<<<<< HEAD
-=======
->>>>>>> 4c78c0020cc72992a1177875bc73c2ec0cfb2da8
->>>>>>> master
 }
