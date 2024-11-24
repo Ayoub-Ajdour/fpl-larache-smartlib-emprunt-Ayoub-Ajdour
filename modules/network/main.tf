@@ -8,7 +8,7 @@ resource "aws_subnet" "subnet" {
   count               = 3
   vpc_id              = aws_vpc.main_vpc.id
   cidr_block          = "172.31.${100 + count.index}.0/24"
-  availability_zone   = "us-east-1${element(["a", "b", "c"], count.index)}"
+  availability_zone   = "eu-north-1${element(["a", "b", "c"], count.index)}"
   map_public_ip_on_launch = true
 }
 
