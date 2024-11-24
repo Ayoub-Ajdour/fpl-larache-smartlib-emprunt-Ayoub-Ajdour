@@ -1,6 +1,40 @@
 provider "aws" {
   region = var.aws_region
 }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+module "ecr" {
+  source              = "./modules/ecr"
+  ecr_repository_name = var.ecr_repository_name
+}
+
+module "networking" {
+  source = "./modules/network"
+
+  region = var.aws_region  
+
+  subnet_ids = module.networking.subnet_ids
+}
+
+
+module "ecs" {
+  source             = "./modules/ecs"
+  ecs_cluster_name   = var.ecs_cluster_name
+  ecs_task_family    = var.ecs_task_family
+  ecs_service_name   = var.ecs_service_name
+  subnet_ids         = module.networking.subnet_ids
+  
+  task_execution_role = data.aws_iam_role.existing_ecs_task_execution.arn
+  ecr_repository_url  = module.ecr.repository_url
+}
+
+
+data "aws_iam_role" "existing_ecs_task_execution" {
+  name = "ecsTaskExecutionRole"
+=======
+>>>>>>> master
 resource "aws_ecr_repository" "app_repo" {
   name                 = var.ecr_repository_name
   image_tag_mutability = "MUTABLE"
@@ -63,4 +97,8 @@ resource "aws_iam_role" "ecs_task_execution" {
 resource "aws_iam_role_policy_attachment" "ecs_task_execution_attachment" {
   role       = aws_iam_role.ecs_task_execution.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+<<<<<<< HEAD
+=======
+>>>>>>> 4c78c0020cc72992a1177875bc73c2ec0cfb2da8
+>>>>>>> master
 }
