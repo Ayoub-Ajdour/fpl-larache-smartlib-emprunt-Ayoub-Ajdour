@@ -9,9 +9,7 @@ module "ecr" {
 
 module "networking" {
   source = "./modules/network"
-  
-  region = var.aws_region  
-
+  region = var.aws_region
   subnet_ids = module.networking.subnet_ids
 }
 
@@ -21,7 +19,6 @@ module "ecs" {
   ecs_task_family    = var.ecs_task_family
   ecs_service_name   = var.ecs_service_name
   subnet_ids         = module.networking.subnet_ids
-  
   task_execution_role = data.aws_iam_role.existing_ecs_task_execution.arn
   ecr_repository_url  = module.ecr.repository_url
 }
@@ -30,11 +27,7 @@ data "aws_iam_role" "existing_ecs_task_execution" {
   name = "ecsTaskExecutionRole"
 }
 
-
-
-
-
 resource "aws_iam_role_policy_attachment" "ecs_task_execution_attachment" {
-  role       = aws_iam_role.ecs_task_execution.name
+  role       = data.aws_iam_role.existing_ecs_task_execution.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
